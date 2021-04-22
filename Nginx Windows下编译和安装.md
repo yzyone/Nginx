@@ -8,6 +8,8 @@
 - Perl, if you want to build OpenSSL® and nginx with SSL support. For example ActivePerl or Strawberry Perl.
 - Mercurial client.
 
+命令行sed.exe需要提前下载安装好。`http://gnuwin32.sourceforge.net/packages.html`
+
 1、下载Nginx源码（`http://hg.nginx.org/`）和nginx-http-flv-module（`https://github.com/winshining/nginx-http-flv-module`）源码
 
 注意：官网下载的Nginx版本不支持windows下编译，提示错误：
@@ -59,7 +61,7 @@ OPENSSL: `https://www.openssl.org/source/openssl-1.1.1c.tar.gz`
     --with-openssl=objs/lib/openssl-1.1.1c \
     --with-openssl-opt=no-asm \
     --with-http_ssl_module \
-    --add-module=objs/lib/nginx-http-flv-module
+    --add-module=objs/lib/nginx-http-flv-module-1.2.8
 ```
 
 脚本执行如果提示
@@ -142,7 +144,6 @@ C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise>
 
 已完成库搜索
         sed -e "s|%PREFIX%||"  -e "s|%PID_PATH%|/logs/nginx.pid|"  -e "s|%CONF_PATH%|/conf/nginx.conf|"  -e "s|%ERROR_LOG_PATH%|/logs/error.log|"  < docs/man/nginx.8 > objs/nginx.8
-'sed' 不是内部或外部命令，也不是可运行的程序
 ```
 
 至此，Nginx编译完成。打开objs目录，显示如下：

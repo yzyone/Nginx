@@ -1,7 +1,7 @@
 
 # windows下 编译nginx教程 #
 
-1、安装visual studio 2015
+1、安装visual studio 2017
 
 2、安装msys2 `http://repo.msys2.org/distrib/x86_64/msys2-x86_64-20180531.exe`
 
@@ -13,22 +13,18 @@
        https://ftp.pcre.org/pub/pcre/pcre-8.42.zip
        http://www.zlib.net/zlib-1.2.11.tar.gz
 
+5、打开vs2017命令行
 
-
-5、打开vs2005命令行
-
-
-
- 
+VS 2017的开发人员命令提示符 
 
 6、在命令行中启动msys2
 
-
+    msys2_shell.cmd
 
 7、在msys2控制台中输入
 
-echo $INCLUDE
-echo $LIB
+    echo $INCLUDE
+    echo $LIB
 
 查看环境变量是否正常
 
@@ -36,26 +32,28 @@ echo $LIB
 
 8、下载安装perl和nasm
 
+```
 https://www.nasm.us/pub/nasm/releasebuilds/2.14.02/win64/nasm-2.14.02-win64.zip
 
 https://downloads.activestate.com/ActivePerl/releases/5.26.3.2603/ActivePerl-5.26.3.2603-MSWin32-x64-a95bce075.exe
+```
 
 8、设置PATH 变量保证cl.exe、 rc.exe、perl.exe、nasm.exe都在PATH下
 
+```
 PATH=`cygpath -u "${VCINSTALLDIR}"`/bin:"$PATH"
 PATH=`cygpath -u "${UniversalCRTSdkDir}"`../8.1/bin/x86:"$PATH"
 PATH=/d/nasm-2.14.02:/d/Perl64/bin:$PATH
+```
 
 路径根据安装路径和操作系统可能不同，第一行设置cl.exe路径，第二行设置rc.exe，第三行设置perl.exe和nasm.exe
 
 使用which命令查看是否正确
 
-which cl.exe 
-which rc.exe
-which perl.exe
-which nasm.exe
-
-
+    which cl.exe 
+    which rc.exe
+    which perl.exe
+    which nasm.exe
 
 9、cd到nginx源码目录
 
@@ -63,14 +61,14 @@ which nasm.exe
 
 10、执行configure命令，参数可以查看官方发布的nginx.exe -V查看，然后修改
 
---with-openssl=openssl
---with-pcre=pcre
---with-zlib=zlib
+    --with-openssl=openssl
+    --with-pcre=pcre
+    --with-zlib=zlib
 
 根据需求增删一些module，比如我这里加上了--with-stream_ssl_preread_module，删除了一些不用的模块。
 
 
-
+```
 auto/configure \
 --with-cc=cl \
 --builddir=objs \
@@ -108,12 +106,12 @@ auto/configure \
 --with-http_ssl_module \
 --with-stream_ssl_module \
 --with-stream_ssl_preread_module
-
+```
 
 
 11、执行nmake，如果有报错，需要具体分析，有可能某些module依赖的组件缺失，可以删减一些module尝试几次
 
-
+    nmake -f objs/Makefile
 
 12、编译成功后在objs中生成nginx.exe
 

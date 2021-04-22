@@ -1,5 +1,5 @@
 
-# windows编译64位nginx #
+# windows编译64位nginx 注意事项 #
 
 nginx官方给出了在windows下编译的介绍
 
